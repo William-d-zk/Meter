@@ -1,0 +1,17 @@
+GET http://mqtt.isahl.com:8080/api/rtu/in?addr=01&cmd=03&payload=10009813ED1A
+Accept: application/json
+
+###
+### setup
+POST http://mqtt.isahl.com:8080/api/meter/setup
+Content-Type: application/json
+
+{
+  "sn": "meter-test-0001",
+  "client": "F36E77F85686F7B72820070241240D7C141B13E22BAD4B38EB81F173976DF72F",
+  "address": 1,
+  "type": "db194e"
+}
+
+###
+
