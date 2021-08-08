@@ -1,0 +1,17 @@
+GET http://test.isahl.com:8080/api/rtu/in?addr=01&cmd=03&payload=10009813ED1A
+Accept: application/json
+
+###
+### setup
+POST http://test.isahl.com:8080/api/meter/setup
+Content-Type: application/json
+
+{
+  "sn": "meter-test-0001",
+  "client": "57686FC6747D1DB0811495E20E4EFFEACD13CCC1E43009EF1F0C9B306D663C5C",
+  "address": 1,
+  "type": "db194e"
+}
+
+###
+
