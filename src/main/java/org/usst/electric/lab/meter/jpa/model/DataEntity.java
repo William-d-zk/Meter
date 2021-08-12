@@ -1,46 +1,39 @@
 package org.usst.electric.lab.meter.jpa.model;
 
-import java.io.Serial;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.TypeDef;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.isahl.chess.queen.db.inf.IStorage;
-import com.isahl.chess.rook.storage.jpa.model.AuditModel;
+import com.isahl.chess.rook.storage.jpa.model.AuditModelManual;
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+
+import javax.persistence.*;
+import java.io.Serial;
+
+import static org.usst.electric.lab.meter.config.MeterConstants.DB_SERIAL_METER_DATA_ENTITY;
 
 @Entity(name = "meter_data")
 @Table(schema = "usst")
-@TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
+@TypeDef(name = "jsonb",
+         typeClass = JsonBinaryType.class)
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class DataEntity
-        extends
-        AuditModel
-        implements
-        IStorage
+        extends AuditModelManual
+        implements IStorage
 {
     @Serial
-    private static final long serialVersionUID   = -549007643252477946L;
-    private final static int  DATA_ENTITY_SERIAL = AUDIT_MODEL_SERIAL + 1001;
+    private static final long        serialVersionUID = -549007643252477946L;
     @Id
-    @GeneratedValue(generator = "ZDeviceGenerator")
-    @GenericGenerator(name = "ZDeviceGenerator",
-                      strategy = "com.isahl.chess.pawn.endpoint.device.jpa.generator.ZDeviceGenerator")
-    private long              id;
-    private int               regAddr;
-    private float             data;
+    private              long        id;
+    @Column(name = "reg_addr")
+    private              int         regAddr;
+    @Column(name = "data")
+    @Type(type = "org.hibernate.type.BinaryType")
+    private              byte[]      data;
     @ManyToOne
-    private MeterEntity       meter;
+    private              MeterEntity meter;
 
     @JsonIgnore
     @Transient
@@ -49,7 +42,7 @@ public class DataEntity
     @Override
     public int serial()
     {
-        return DATA_ENTITY_SERIAL;
+        return DB_SERIAL_METER_DATA_ENTITY;
     }
 
     @Override
@@ -81,19 +74,35 @@ public class DataEntity
         return meter;
     }
 
-    public int getRegAddr() {
+    public void setMeter(MeterEntity meter) {this.meter = meter;}
+
+    public int getRegAddr()
+    {
         return regAddr;
     }
 
-    public void setRegAddr(int regAddr) {
+    public void setRegAddr(int regAddr)
+    {
         this.regAddr = regAddr;
     }
 
-    public float getData() {
+    public byte[] getData()
+    {
         return data;
     }
 
-    public void setData(float data) {
+    public void setData(byte[] data)
+    {
         this.data = data;
+    }
+
+    public long getId()
+    {
+        return id;
+    }
+
+    public void setId(long id)
+    {
+        this.id = id;
     }
 }

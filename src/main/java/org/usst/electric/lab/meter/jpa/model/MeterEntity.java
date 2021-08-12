@@ -1,50 +1,46 @@
 package org.usst.electric.lab.meter.jpa.model;
 
-import java.io.Serial;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Index;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.TypeDef;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.isahl.chess.queen.db.inf.IStorage;
 import com.isahl.chess.rook.storage.jpa.model.AuditModel;
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
+import org.hibernate.annotations.TypeDef;
+
+import javax.persistence.*;
+import java.io.Serial;
+
+import static org.usst.electric.lab.meter.config.MeterConstants.DB_SERIAL_METER_ENTITY;
 
 @Entity(name = "meter_device")
-@Table(schema = "usst", indexes = {@Index(name = "meter_device_idx_sn", columnList = "sn")})
-@TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
+@Table(schema = "usst",
+       indexes = { @Index(name = "meter_device_sn_idx",
+                          columnList = "sn"),
+                   @Index(name = "meter_485_idx",
+                          columnList = "r485Id")
+       })
+@TypeDef(name = "jsonb",
+         typeClass = JsonBinaryType.class)
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class MeterEntity
-        extends
-        AuditModel
-        implements
-        IStorage
+        extends AuditModel
+        implements IStorage
 {
     @Serial
-    private static final long serialVersionUID    = -549007643252477946L;
-    private final static int  METER_ENTITY_SERIAL = AUDIT_MODEL_SERIAL + 1000;
+    private static final long   serialVersionUID = -549007643252477946L;
     @Id
-    @GeneratedValue(generator = "ZDeviceGenerator")
-    @GenericGenerator(name = "ZDeviceGenerator",
-                      strategy = "com.isahl.chess.pawn.endpoint.device.jpa.generator.ZDeviceGenerator")
-    private long              id;
-    @Column(updatable = false, nullable = false)
-    private long              r485Id;
-    private byte              addr;
-    private String            type;
-    private String            note;
-    @Column(updatable = false, nullable = false, unique = true)
-    private String            sn;
+    private              long   id;
+    @Column(updatable = false,
+            nullable = false)
+    private              long   r485Id;
+    private              byte   addr;
+    private              String type;
+    private              String note;
+    @Column(updatable = false,
+            nullable = false,
+            unique = true)
+    private              String sn;
 
     @JsonIgnore
     @Transient
@@ -53,7 +49,7 @@ public class MeterEntity
     @Override
     public int serial()
     {
-        return METER_ENTITY_SERIAL;
+        return DB_SERIAL_METER_ENTITY;
     }
 
     @Override
