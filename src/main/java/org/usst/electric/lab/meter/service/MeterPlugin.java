@@ -1,13 +1,13 @@
 package org.usst.electric.lab.meter.service;
 
 import com.isahl.chess.bishop.io.mqtt.command.X113_QttPublish;
+import com.isahl.chess.king.base.log.Logger;
 import com.isahl.chess.pawn.endpoint.device.api.jpa.model.MessageEntity;
 import com.isahl.chess.pawn.endpoint.device.api.jpa.repository.IMessageJpaRepository;
 import com.isahl.chess.pawn.endpoint.device.spi.IHandleHook;
 import com.isahl.chess.queen.io.core.inf.IControl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.usst.electric.lab.meter.jpa.repository.IMeterDataRepository;
 
 import java.util.List;
 
@@ -15,13 +15,14 @@ import java.util.List;
 public class MeterPlugin
         implements IHandleHook
 {
-    private final IMeterDataRepository  _DataRepository;
+
+    private final Logger _Logger = Logger.getLogger("usst.meter." + getClass().getSimpleName());
+
     private final IMessageJpaRepository _MessageJpaRepository;
 
     @Autowired
-    public MeterPlugin(IMeterDataRepository dataRepository, IMessageJpaRepository messageJpaRepository)
+    public MeterPlugin(IMessageJpaRepository messageJpaRepository)
     {
-        _DataRepository = dataRepository;
         _MessageJpaRepository = messageJpaRepository;
     }
 
@@ -40,7 +41,7 @@ public class MeterPlugin
                     _MessageJpaRepository.save(messageEntity);
                 }
                 catch(Throwable e) {
-
+                    _Logger.warning("Error saving message", e);
                 }
             }
         }

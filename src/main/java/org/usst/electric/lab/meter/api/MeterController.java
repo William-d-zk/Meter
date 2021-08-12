@@ -6,10 +6,7 @@ import com.isahl.chess.king.config.Code;
 import com.isahl.chess.pawn.endpoint.device.jpa.remote.postgres.model.DeviceEntity;
 import com.isahl.chess.player.api.service.MixOpenService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.usst.electric.lab.meter.api.model.MeterDo;
 import org.usst.electric.lab.meter.jpa.model.MeterEntity;
 import org.usst.electric.lab.meter.service.MeterService;
@@ -42,5 +39,15 @@ public class MeterController
         entity = _Service.addMeter(entity);
         return ZResponse.success(entity);
     }
+
+    @GetMapping("query")
+    public ZResponse<?> query(
+            @RequestParam("r485id")
+                    long r485id)
+    {
+        MeterEntity meter = _Service.findMeterByR485Id(r485id);
+        return meter != null ? ZResponse.success(meter) : ZResponse.error(Code.MISS.getCode(), "not found meter");
+    }
+
 
 }

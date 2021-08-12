@@ -10,6 +10,7 @@ import java.util.Optional;
 public interface IMeterRepository
         extends BaseLongRepository<MeterEntity>
 {
-
     Optional<MeterEntity> findBySn(String sn);
+
+    MeterEntity findByR485Id(long r485Id);
 }
