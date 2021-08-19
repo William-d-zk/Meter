@@ -1,5 +1,6 @@
 package org.usst.electric.lab.meter.jpa.config;
 
+import com.isahl.chess.king.base.log.Logger;
 import com.isahl.chess.rook.storage.jpa.config.BaseJpaConfig;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateProperties;
@@ -27,6 +28,8 @@ public class MeterJpaConfig
         extends BaseJpaConfig
 {
 
+    private final Logger _Logger = Logger.getLogger("app.meter." + getClass().getSimpleName());
+
     @Bean("meter-entity-manager")
     public LocalContainerEntityManagerFactoryBean createSecurityEntityManager(
             @Qualifier("primary-data-source")
@@ -38,6 +41,7 @@ public class MeterJpaConfig
             @Qualifier("primary-sql-init-settings")
                     DatabaseInitializationSettings initializationSettings)
     {
+        _Logger.info(initializationSettings);
         return getEntityManager(dataSource,
                                 jpaProperties,
                                 hibernateProperties,

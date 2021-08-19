@@ -7,7 +7,6 @@ import org.springframework.context.annotation.PropertySource;
 @Configuration("meter_config")
 @ConfigurationProperties(prefix = "usst.lab.meter")
 @PropertySource("classpath:meter.properties")
-
 public class MeterConfig
 {
     private String meterType;
