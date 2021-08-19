@@ -35,7 +35,7 @@ public class MeterController
         String client = meter.getClient();
         DeviceEntity device = _OpenService.findByToken(client);
         if(device == null) {return ZResponse.error(Code.MISS.getCode(), Code.MISS.format(client));}
-        entity.setR485Id(device.getId());
+        entity.setDeviceId(device.getId());
         entity = _Service.addMeter(entity);
         return ZResponse.success(entity);
     }

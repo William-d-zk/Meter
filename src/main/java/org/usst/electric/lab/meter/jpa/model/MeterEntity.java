@@ -30,7 +30,6 @@ public class MeterEntity
     @Serial
     private static final long   serialVersionUID = -549007643252477946L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private              long   id;
     @Column(updatable = false,
             nullable = false)

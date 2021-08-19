@@ -9,6 +9,7 @@ import com.isahl.chess.rook.storage.cache.config.EhcacheConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
@@ -60,7 +62,8 @@ public class MeterService
     @PostConstruct
     void initialize() throws ClassNotFoundException, InstantiationException, IllegalAccessException
     {
-        EhcacheConfig.createCache(_CacheManager, "meter", Long.class, MeterEntity.class, Duration.of(20, MINUTES));
+        EhcacheConfig.createCache(_CacheManager, "meter_sn", String.class, Page.class, Duration.of(20, MINUTES));
+        EhcacheConfig.createCache(_CacheManager, "meter_485", Long.class, MeterEntity.class, Duration.of(20, MINUTES));
         _TimeWheel.acquire(this, _BatchUpdateHandler);
     }
 
@@ -75,17 +78,20 @@ public class MeterService
         return _DataRepository.save(entity);
     }
 
-    public Page<DataEntity> findAllData(long meterId, LocalDateTime start, LocalDateTime end, Pageable pageable)
+    private Page<DataEntity> findAllDataInRegion(long meterId,
+                                                 LocalDateTime start,
+                                                 LocalDateTime end,
+                                                 Pageable pageable)
     {
         return _DataRepository.findAll((Specification<DataEntity>) (root, criteriaQuery, criteriaBuilder)->{
-            return criteriaQuery.where(criteriaBuilder.equal(root.get("meter_id"), meterId),
-                                       criteriaBuilder.between(root.get("created_at"), start, end))
+            return criteriaQuery.where(criteriaBuilder.equal(root.get("meterId"), meterId),
+                                       criteriaBuilder.between(root.get("createdAt"), start, end))
                                 .getRestriction();
 
         }, pageable);
     }
 
-    @Cacheable(value = "meter",
+    @Cacheable(value = "meter_485",
                key = "#r485Id",
                unless = "#r485Id ==0",
                condition = "#result !=null")
@@ -139,4 +145,22 @@ public class MeterService
         }
     }
 
+    @Cacheable(value = "meter_sn",
+               key = "#meter",
+               unless = "#meter == null || #result == null || #result.isEmpty()")
+    public Page<DataEntity> pageQuery(String meter, int limit)
+    {
+
+        Optional<MeterEntity> meterOptional = _MeterRepository.findBySn(meter);
+        if(meterOptional.isPresent()) {
+            MeterEntity meterEntity = meterOptional.get();
+            Page<DataEntity> source = _DataRepository.findAll((Specification<DataEntity>) (root, criteriaQuery, criteriaBuilder)->{
+                return criteriaQuery.where(criteriaBuilder.equal(root.get("meter"), meterEntity))
+                                    .orderBy(criteriaBuilder.desc(root.get("createdAt")))
+                                    .getRestriction();
+            }, PageRequest.of(0, limit));
+            return source;
+        }
+        return null;
+    }
 }
