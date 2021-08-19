@@ -26,6 +26,7 @@ public class DataEntity
     @Serial
     private static final long        serialVersionUID = -549007643252477946L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private              long        id;
     @Column(name = "reg_addr")
     private              int         regAddr;

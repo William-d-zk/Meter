@@ -63,7 +63,7 @@ public class MeterService
     void initialize() throws ClassNotFoundException, InstantiationException, IllegalAccessException
     {
         EhcacheConfig.createCache(_CacheManager, "meter_sn", String.class, Page.class, Duration.of(20, MINUTES));
-        EhcacheConfig.createCache(_CacheManager, "meter_485", Long.class, MeterEntity.class, Duration.of(20, MINUTES));
+        EhcacheConfig.createCache(_CacheManager, "meter_device", Long.class, MeterEntity.class, Duration.of(20, MINUTES));
         _TimeWheel.acquire(this, _BatchUpdateHandler);
     }
 
@@ -91,13 +91,13 @@ public class MeterService
         }, pageable);
     }
 
-    @Cacheable(value = "meter_485",
-               key = "#r485Id",
-               unless = "#r485Id ==0",
+    @Cacheable(value = "meter_device",
+               key = "#deviceId",
+               unless = "#deviceId ==0",
                condition = "#result !=null")
-    public MeterEntity findMeterByR485Id(long r485Id)
+    public MeterEntity findMeterByDeviceId(long deviceId)
     {
-        return _MeterRepository.findByR485Id(r485Id);
+        return _MeterRepository.findByDeviceId(deviceId);
     }
 
     @Override
@@ -121,7 +121,7 @@ public class MeterService
                                                             if(id > _LastUpdated.get()) {
                                                                 _LastUpdated.set(id);
                                                             }
-                                                            MeterEntity meter = findMeterByR485Id(msg.getOrigin());
+                                                            MeterEntity meter = findMeterByDeviceId(msg.getOrigin());
                                                             if(meter != null) {
                                                                 DataEntity data = new DataEntity();
                                                                 data.setData(msg.getContent());

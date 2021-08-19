@@ -42,12 +42,11 @@ public class MeterController
 
     @GetMapping("query")
     public ZResponse<?> query(
-            @RequestParam("r485id")
-                    long r485id)
+            @RequestParam("device")
+                    long deviceId)
     {
-        MeterEntity meter = _Service.findMeterByR485Id(r485id);
+        MeterEntity meter = _Service.findMeterByDeviceId(deviceId);
         return meter != null ? ZResponse.success(meter) : ZResponse.error(Code.MISS.getCode(), "not found meter");
     }
-
 
 }

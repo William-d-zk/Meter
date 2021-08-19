@@ -12,5 +12,5 @@ public interface IMeterRepository
 {
     Optional<MeterEntity> findBySn(String sn);
 
-    MeterEntity findByR485Id(long r485Id);
+    MeterEntity findByDeviceId(long deviceId);
 }

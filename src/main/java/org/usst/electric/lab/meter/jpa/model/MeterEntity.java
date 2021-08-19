@@ -17,8 +17,8 @@ import static org.usst.electric.lab.meter.config.MeterConstants.DB_SERIAL_METER_
 @Table(schema = "usst",
        indexes = { @Index(name = "meter_device_sn_idx",
                           columnList = "sn"),
-                   @Index(name = "meter_485_idx",
-                          columnList = "r485Id")
+                   @Index(name = "meter_device_idx",
+                          columnList = "device_id")
        })
 @TypeDef(name = "jsonb",
          typeClass = JsonBinaryType.class)
@@ -28,19 +28,24 @@ public class MeterEntity
         implements IStorage
 {
     @Serial
-    private static final long   serialVersionUID = -549007643252477946L;
+    private static final long serialVersionUID = -549007643252477946L;
+
     @Id
-    private              long   id;
+    @GeneratedValue(generator = "meter_seq")
+    @SequenceGenerator(name = "meter_seq",
+                       schema = "usst",
+                       sequenceName = "meter_sequence")
+    private long   id;
     @Column(updatable = false,
             nullable = false)
-    private              long   r485Id;
-    private              byte   addr;
-    private              String type;
-    private              String note;
+    private long   deviceId;
+    private byte   addr;
+    private String type;
+    private String note;
     @Column(updatable = false,
             nullable = false,
             unique = true)
-    private              String sn;
+    private String sn;
 
     @JsonIgnore
     @Transient
@@ -76,14 +81,14 @@ public class MeterEntity
         return IStorage.Strategy.RETAIN;
     }
 
-    public long getR485Id()
+    public long getDeviceId()
     {
-        return r485Id;
+        return deviceId;
     }
 
-    public void setR485Id(long r485Id)
+    public void setDeviceId(long r485Id)
     {
-        this.r485Id = r485Id;
+        this.deviceId = r485Id;
     }
 
     public byte getAddr()

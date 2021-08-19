@@ -1,0 +1,43 @@
+version: '3.9'
+services:
+  db-pg:
+    image: isahl/postgres
+    container_name: db-pg
+    hostname: db-pg
+    domainname: isahl.com
+    ports:
+      - "5432:5432"
+    networks:
+      endpoint:
+        ipv4_address: 172.30.10.254
+    volumes:
+      - "~/Services/db/postgresql:/var/lib/postgresql/data"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgress
+      - POSTGRES_DB=postgres
+  meter:
+    image: img.z-chess.arena.aarch64
+    container_name: meter
+    depends_on:
+      - db-pg
+    hostname: meter
+    ports:
+      - "8080:8080"
+      - "8000:8000"
+      - "1883:1883"
+    networks:
+      endpoint:
+        ipv4_address: 172.30.10.110
+    extra_hosts:
+      - "db-pg.isahl.com:172.30.10.254"
+    volumes:
+      - "~/electric-dash/z-chess:/root/Z-Chess"
+    entrypoint: java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8000 -jar /app.jar --spring.profiles.active=online
+networks:
+  endpoint:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.30.10.0/24
+          gateway: 172.30.10.1
