@@ -33,7 +33,7 @@ services:
       - "db-pg.isahl.com:172.30.10.254"
     volumes:
       - "~/electric-dash/z-chess:/root/Z-Chess"
-    entrypoint: java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8000 -jar /app.jar --spring.profiles.active=online
+    entrypoint: java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8000 -jar /app.jar
 networks:
   endpoint:
     driver: bridge
