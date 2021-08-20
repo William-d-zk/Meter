@@ -28,7 +28,7 @@ public class MeterJpaConfig
         extends BaseJpaConfig
 {
 
-    private final Logger _Logger = Logger.getLogger("app.meter." + getClass().getSimpleName());
+    private final Logger _Logger = Logger.getLogger("biz.player.meter." + getClass().getSimpleName());
 
     @Bean("meter-entity-manager")
     public LocalContainerEntityManagerFactoryBean createSecurityEntityManager(
