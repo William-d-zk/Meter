@@ -41,7 +41,9 @@ public class MeterJpaConfig
             @Qualifier("primary-sql-init-settings")
                     DatabaseInitializationSettings initializationSettings)
     {
-        _Logger.info(initializationSettings);
+        _Logger.info("init schema: %s",
+                     initializationSettings.getSchemaLocations()
+                                           .toString());
         return getEntityManager(dataSource,
                                 jpaProperties,
                                 hibernateProperties,
