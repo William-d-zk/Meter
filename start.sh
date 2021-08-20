@@ -1,0 +1,1 @@
+docker compose --ansi always -p meter -f Docker-Compose.yaml up -d
