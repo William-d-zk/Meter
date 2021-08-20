@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
                                            "com.isahl.chess.rook.storage",
                                            "com.isahl.chess.pawn.endpoint",
                                            "com.isahl.chess.player.api",
-                                           "org.usst.electric.lab"})
+                                           "org.usst.electric.lab.meter"})
 public class ApplicationMeter
 {
     public static void main(String[] args)

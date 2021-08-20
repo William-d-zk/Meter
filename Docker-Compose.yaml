@@ -17,7 +17,7 @@ services:
       - POSTGRES_PASSWORD=postgres
       - POSTGRES_DB=postgres
   meter:
-    image: img.z-chess.arena.aarch64
+    image: isahl/meter
     container_name: meter
     depends_on:
       - db-pg
@@ -33,7 +33,7 @@ services:
       - "db-pg.isahl.com:172.30.10.254"
     volumes:
       - "~/electric-dash/z-chess:/root/Z-Chess"
-    entrypoint: java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8000 -jar /app.jar
+    entrypoint: java -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:8000 -jar /app.jar
 networks:
   endpoint:
     driver: bridge
