@@ -37,7 +37,8 @@ public class MeterEntity
                        sequenceName = "meter_sequence")
     private long   id;
     @Column(updatable = false,
-            nullable = false)
+            nullable = false,
+            name = "device_id")
     private long   deviceId;
     private byte   addr;
     private String type;
