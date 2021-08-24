@@ -16,19 +16,10 @@ public class DataDo
     @Serial
     private static final long serialVersionUID = -8539499424596064151L;
 
-    private long   meterId;
-    private byte[] content;
+    private String meter;
+    private int    length;
+    private String hex;
     private String type;
-
-    public byte[] getContent()
-    {
-        return content;
-    }
-
-    public void setContent(byte[] content)
-    {
-        this.content = content;
-    }
 
     public String getType()
     {
@@ -40,13 +31,33 @@ public class DataDo
         this.type = type;
     }
 
-    public long getMeterId()
+    public String getHex()
     {
-        return meterId;
+        return hex;
     }
 
-    public void setMeterId(long meterId)
+    public void setHex(String hex)
     {
-        this.meterId = meterId;
+        this.hex = hex;
+    }
+
+    public String getMeter()
+    {
+        return meter;
+    }
+
+    public void setMeter(String meter)
+    {
+        this.meter = meter;
+    }
+
+    public int getLength()
+    {
+        return length;
+    }
+
+    public void setLength(int length)
+    {
+        this.length = length;
     }
 }

@@ -1,6 +1,7 @@
 package org.usst.electric.lab.start;
 
 import com.isahl.chess.king.base.log.Logger;
+import com.isahl.chess.king.base.util.IoUtil;
 import com.isahl.chess.player.api.controller.DeviceController;
 import com.isahl.chess.player.api.service.MixOpenService;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,9 +35,5 @@ class ApplicationMeterTest
                              .build();
     }
 
-    @Test
-    void testRegister()
-    {
 
-    }
 }
