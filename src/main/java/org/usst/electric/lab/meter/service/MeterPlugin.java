@@ -2,10 +2,10 @@ package org.usst.electric.lab.meter.service;
 
 import com.isahl.chess.bishop.io.mqtt.command.X113_QttPublish;
 import com.isahl.chess.king.base.log.Logger;
-import com.isahl.chess.pawn.endpoint.device.api.jpa.model.MessageEntity;
-import com.isahl.chess.pawn.endpoint.device.api.jpa.repository.IMessageJpaRepository;
+import com.isahl.chess.pawn.endpoint.device.api.db.model.MessageEntity;
+import com.isahl.chess.pawn.endpoint.device.api.db.repository.IMessageJpaRepository;
 import com.isahl.chess.pawn.endpoint.device.spi.IHandleHook;
-import com.isahl.chess.queen.io.core.inf.IControl;
+import com.isahl.chess.queen.io.core.features.model.content.IControl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
