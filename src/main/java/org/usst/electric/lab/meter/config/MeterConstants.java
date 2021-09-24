@@ -1,6 +1,6 @@
 package org.usst.electric.lab.meter.config;
 
-import static com.isahl.chess.pawn.endpoint.device.jpa.PawnConstants.PAWN_END_SERIAL;
+import static com.isahl.chess.pawn.endpoint.device.db.PawnConstants.PAWN_END_SERIAL;
 
 /**
  * @author william.d.zk

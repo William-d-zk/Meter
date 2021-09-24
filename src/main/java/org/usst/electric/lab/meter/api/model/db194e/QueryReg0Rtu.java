@@ -1,8 +1,8 @@
 package org.usst.electric.lab.meter.api.model.db194e;
 
 import com.isahl.chess.bishop.io.modbus.rtu.ModbusRtuProtocol;
-import com.isahl.chess.queen.io.core.inf.ICommand;
-import com.isahl.chess.queen.io.core.inf.IContext;
+import com.isahl.chess.queen.io.core.features.model.content.ICommand;
+import com.isahl.chess.queen.io.core.features.model.session.IContext;
 
 public class QueryReg0Rtu
         extends ModbusRtuProtocol

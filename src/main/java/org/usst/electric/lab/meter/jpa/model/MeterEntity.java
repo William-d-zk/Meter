@@ -3,8 +3,8 @@ package org.usst.electric.lab.meter.jpa.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import com.isahl.chess.queen.db.inf.IStorage;
-import com.isahl.chess.rook.storage.jpa.model.AuditModel;
+import com.isahl.chess.queen.db.model.IStorage;
+import com.isahl.chess.rook.storage.db.model.AuditModel;
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import org.hibernate.annotations.TypeDef;
 

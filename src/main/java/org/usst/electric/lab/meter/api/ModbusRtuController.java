@@ -1,8 +1,8 @@
 package org.usst.electric.lab.meter.api;
 
 import com.isahl.chess.bishop.io.modbus.rtu.ModbusRtuProtocol;
+import com.isahl.chess.king.base.content.ZResponse;
 import com.isahl.chess.king.base.log.Logger;
-import com.isahl.chess.king.base.response.ZResponse;
 import com.isahl.chess.king.base.util.CryptoUtil;
 import com.isahl.chess.king.base.util.IoUtil;
 import com.isahl.chess.king.config.Code;

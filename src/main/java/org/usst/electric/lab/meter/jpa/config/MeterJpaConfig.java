@@ -1,7 +1,7 @@
 package org.usst.electric.lab.meter.jpa.config;
 
 import com.isahl.chess.king.base.log.Logger;
-import com.isahl.chess.rook.storage.jpa.config.BaseJpaConfig;
+import com.isahl.chess.rook.storage.db.config.BaseJpaConfig;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateProperties;
 import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;

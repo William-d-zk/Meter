@@ -1,9 +1,9 @@
 package org.usst.electric.lab.meter.api;
 
+import com.isahl.chess.king.base.content.ZResponse;
 import com.isahl.chess.king.base.log.Logger;
-import com.isahl.chess.king.base.response.ZResponse;
 import com.isahl.chess.king.config.Code;
-import com.isahl.chess.pawn.endpoint.device.jpa.remote.postgres.model.DeviceEntity;
+import com.isahl.chess.pawn.endpoint.device.db.remote.postgres.model.DeviceEntity;
 import com.isahl.chess.player.api.service.MixOpenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

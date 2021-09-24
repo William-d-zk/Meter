@@ -1,12 +1,11 @@
 package org.usst.electric.lab.meter.api.model;
 
-import java.io.Serial;
-import java.io.Serializable;
-
-import org.usst.electric.lab.meter.jpa.model.MeterEntity;
-
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import org.usst.electric.lab.meter.jpa.model.MeterEntity;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
 public class MeterDo

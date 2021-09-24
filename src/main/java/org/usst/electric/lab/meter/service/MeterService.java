@@ -1,10 +1,10 @@
 package org.usst.electric.lab.meter.service;
 
-import com.isahl.chess.king.base.schedule.ScheduleHandler;
-import com.isahl.chess.king.base.schedule.TimeWheel;
-import com.isahl.chess.king.base.schedule.inf.ICancelable;
-import com.isahl.chess.pawn.endpoint.device.api.jpa.model.MessageEntity;
-import com.isahl.chess.pawn.endpoint.device.api.jpa.repository.IMessageJpaRepository;
+import com.isahl.chess.king.base.cron.ScheduleHandler;
+import com.isahl.chess.king.base.cron.TimeWheel;
+import com.isahl.chess.king.base.cron.features.ICancelable;
+import com.isahl.chess.pawn.endpoint.device.api.db.model.MessageEntity;
+import com.isahl.chess.pawn.endpoint.device.api.db.repository.IMessageJpaRepository;
 import com.isahl.chess.rook.storage.cache.config.EhcacheConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -63,7 +63,11 @@ public class MeterService
     void initialize() throws ClassNotFoundException, InstantiationException, IllegalAccessException
     {
         EhcacheConfig.createCache(_CacheManager, "meter_sn", String.class, Page.class, Duration.of(20, MINUTES));
-        EhcacheConfig.createCache(_CacheManager, "meter_device", Long.class, MeterEntity.class, Duration.of(20, MINUTES));
+        EhcacheConfig.createCache(_CacheManager,
+                                  "meter_device",
+                                  Long.class,
+                                  MeterEntity.class,
+                                  Duration.of(20, MINUTES));
         _TimeWheel.acquire(this, _BatchUpdateHandler);
     }
 

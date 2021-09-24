@@ -1,14 +1,8 @@
 package org.usst.electric.lab.meter.api;
 
-import org.usst.electric.lab.meter.api.model.db194e.QueryReg0Rtu;
-import org.usst.electric.lab.meter.api.model.db194e.QueryReg1Rtu;
-import org.usst.electric.lab.meter.api.model.db194e.QueryRelayRtu;
-import org.usst.electric.lab.meter.api.model.db194e.QuerySwitchRtu;
-import org.usst.electric.lab.meter.api.model.db194e.SetMeterAddrRtu;
-import org.usst.electric.lab.meter.api.model.db194e.SetRelayRtu;
-import org.usst.electric.lab.meter.jpa.model.db194e.RtuCmdSchema;
-
 import com.isahl.chess.bishop.io.modbus.rtu.ModbusRtuProtocol;
+import org.usst.electric.lab.meter.api.model.db194e.*;
+import org.usst.electric.lab.meter.jpa.model.db194e.RtuCmdSchema;
 
 public class RtuFactory
 {
